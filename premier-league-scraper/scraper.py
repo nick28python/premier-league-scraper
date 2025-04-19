@@ -8,8 +8,8 @@ HEADERS = {
 }
 
 proxies = {
-    "http": "http://40e59b7f5b9f4ca58320__cr.gb:f4ff6813e5734d78@gw.dataimpulse.com:823",
-    "https": "http://40e59b7f5b9f4ca58320__cr.gb:f4ff6813e5734d78@gw.dataimpulse.com:823"
+    "http": "http://your_proxy_here",
+    "https": "http://your_proxy_here"
 }
 
 # Premier League 2023-24 season
