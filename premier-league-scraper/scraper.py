@@ -2,11 +2,12 @@ import requests
 from bs4 import BeautifulSoup
 import csv
 
-# Set up headers to mimic a browser
+
+# Step 1: Set custom headers to mimic a browser (helps avoid getting blocked)
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
 }
-
+# Step 2: Set up proxy (DataImpulse or any other residential proxy)
 proxies = {
     "http": "http://your_proxy_here",
     "https": "http://your_proxy_here"
@@ -27,7 +28,8 @@ def fetch_html(url):
 def parse_matches(html):
     """Extract match data from HTML."""
     soup = BeautifulSoup(html, 'html.parser')
-    table = soup.find('table', class_='standard_tabelle')
+    table = soup.find('table', class_='standard_tabelle')  # This is where all match data lives
+
 
     data = []
 
@@ -41,7 +43,7 @@ def parse_matches(html):
                 home_team = cols[2].text.strip()
                 away_team = cols[4].text.strip()
                 score = cols[5].text.strip()
-
+# Ensure row contains data columns, not just headers or empty rows
                 data.append({
                     "date": match_date,
                     "time": time,
@@ -61,12 +63,14 @@ def save_to_csv(matches, filename="premier_league_matches.csv"):
     print(f"Data saved to {filename} ✅")
 
 def main():
+     # Step 1: Fetch the HTML
     html = fetch_html(URL)
     if html:
+        # Step 2: Parse match data
         matches = parse_matches(html)
         for match in matches[:5]:  # Display only first 5 for preview
             print(match)
-        save_to_csv(matches)
+        save_to_csv(matches)   # Step 4: Save all matches to CSV
 
 if __name__ == "__main__":
     main()
